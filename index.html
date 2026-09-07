@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>経験値計算機</title>
+
+<style>
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        padding: 20px;
+
+        background: #222;
+        color: white;
+
+        font-family: Arial, "Yu Gothic", sans-serif;
+    }
+
+    .container {
+        max-width: 600px;
+
+        margin: 0 auto;
+
+        background: #333;
+
+        padding: 30px;
+
+        border-radius: 15px;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .input-item {
+        margin-bottom: 20px;
+    }
+
+    .input-item label {
+        display: block;
+        font-size: 18px;
+        margin-bottom: 8px;
+    }
+
+    input[type="number"] {
+        width: 180px;
+
+        padding: 10px;
+
+        font-size: 18px;
+
+        border-radius: 5px;
+
+        border: 1px solid #777;
+    }
+
+    .radio-area {
+        background: #444;
+
+        padding: 15px;
+
+        margin-bottom: 20px;
+
+        border-radius: 10px;
+    }
+
+    .radio-area p {
+        margin-top: 0;
+
+        font-weight: bold;
+    }
+
+    .radio-area label {
+        margin-right: 20px;
+    }
+
+    select {
+        width: 180px;
+
+        padding: 10px;
+
+        font-size: 18px;
+
+        border-radius: 5px;
+    }
+
+    button {
+        width: 100%;
+
+        padding: 15px;
+
+        margin-top: 10px;
+
+        font-size: 20px;
+
+        font-weight: bold;
+
+        border: none;
+
+        border-radius: 10px;
+
+        cursor: pointer;
+
+        background: #555;
+
+        color: white;
+    }
+
+    button:hover {
+        background: #666;
+    }
+
+    .result-area {
+        margin-top: 30px;
+
+        padding: 20px;
+
+        background: #444;
+
+        border-radius: 10px;
+
+        text-align: center;
+    }
+
+    .result-area p {
+        margin-bottom: 5px;
+    }
+
+    #baseExp {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    #dumboRate {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    #result {
+        font-size: 36px;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+    #easyResult {
+        margin-top: 10px;
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+</style>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+    <h1>経験値計算機</h1>
+
+
+    <!-- 通常経験値 -->
+
+    <div class="input-item">
+
+        <label for="normalExp">
+            通常経験値
+        </label>
+
+        <input
+            type="number"
+            id="normalExp"
+            value="80000000"
+            min="0"
+        >
+
+        EXP
+
+    </div>
+
+
+    <!-- 対象キャラクター -->
+
+    <div class="input-item">
+
+        <label for="collab">
+            コラボ / 対象キャラクター数
+        </label>
+
+        <input
+            type="number"
+            id="collab"
+            value="0"
+            min="0"
+            max="6"
+        >
+
+        体
+
+    </div>
+
+
+    <!-- ダンボ -->
+
+    <div class="input-item">
+
+        <label for="dumbo">
+            ダンボの数
+        </label>
+
+        <input
+            type="number"
+            id="dumbo"
+            value="0"
+            min="0"
+        >
+
+        個
+
+    </div>
+
+
+    <!-- 経験値バッジ -->
+
+    <div class="radio-area">
+
+        <p>経験値バッジ</p>
+
+        <label>
+            <input
+                type="radio"
+                name="badge"
+                value="1"
+                checked
+            >
+
+            なし
+        </label>
+
+
+        <label>
+            <input
+                type="radio"
+                name="badge"
+                value="1.1"
+            >
+
+            あり（×1.1）
+        </label>
+
+    </div>
+
+
+    <!-- 会員 -->
+
+    <div class="radio-area">
+
+        <p>会員</p>
+
+        <label>
+            <input
+                type="radio"
+                name="member"
+                value="1"
+                checked
+            >
+
+            非会員
+        </label>
+
+
+        <label>
+            <input
+                type="radio"
+                name="member"
+                value="1.05"
+            >
+
+            会員（×1.05）
+        </label>
+
+    </div>
+
+
+    <!-- リーダー倍率 -->
+
+    <div class="input-item">
+
+        <label for="leader">
+            リーダー経験値倍率
+        </label>
+
+        <select id="leader">
+
+            <option value="1.0">1.0倍</option>
+            <option value="1.1">1.1倍</option>
+            <option value="1.2">1.2倍</option>
+            <option value="1.3">1.3倍</option>
+            <option value="1.4">1.4倍</option>
+            <option value="1.5">1.5倍</option>
+            <option value="1.6">1.6倍</option>
+            <option value="1.7">1.7倍</option>
+            <option value="1.8">1.8倍</option>
+            <option value="1.9">1.9倍</option>
+            <option value="2.0">2.0倍</option>
+            <option value="2.1">2.1倍</option>
+            <option value="2.2">2.2倍</option>
+            <option value="2.3">2.3倍</option>
+            <option value="2.4">2.4倍</option>
+            <option value="2.5">2.5倍</option>
+            <option value="2.6">2.6倍</option>
+            <option value="2.7">2.7倍</option>
+            <option value="2.8">2.8倍</option>
+            <option value="2.9">2.9倍</option>
+            <option value="3.0">3.0倍</option>
+
+        </select>
+
+    </div>
+
+
+    <!-- フレンド倍率 -->
+
+    <div class="input-item">
+
+        <label for="friend">
+            フレンド経験値倍率
+        </label>
+
+        <select id="friend">
+
+            <option value="1.0">1.0倍</option>
+            <option value="1.1">1.1倍</option>
+            <option value="1.2">1.2倍</option>
+            <option value="1.3">1.3倍</option>
+            <option value="1.4">1.4倍</option>
+            <option value="1.5">1.5倍</option>
+            <option value="1.6">1.6倍</option>
+            <option value="1.7">1.7倍</option>
+            <option value="1.8">1.8倍</option>
+            <option value="1.9">1.9倍</option>
+            <option value="2.0">2.0倍</option>
+            <option value="2.1">2.1倍</option>
+            <option value="2.2">2.2倍</option>
+            <option value="2.3">2.3倍</option>
+            <option value="2.4">2.4倍</option>
+            <option value="2.5">2.5倍</option>
+            <option value="2.6">2.6倍</option>
+            <option value="2.7">2.7倍</option>
+            <option value="2.8">2.8倍</option>
+            <option value="2.9">2.9倍</option>
+            <option value="3.0">3.0倍</option>
+
+        </select>
+
+    </div>
+
+
+    <!-- 計算ボタン -->
+
+    <button onclick="calculateExp()">
+        計算する
+    </button>
+
+
+    <!-- 計算結果 -->
+
+    <div class="result-area">
+
+        <h2>計算結果</h2>
+
+
+        <p>基本経験値</p>
+
+        <div id="baseExp">
+            80,000,000
+        </div>
+
+
+        <p>ダンボ倍率</p>
+
+        <div id="dumboRate">
+            ×1.00
+        </div>
+
+
+        <p>最終経験値</p>
+
+        <div id="result">
+            80,000,000
+        </div>
+
+
+        <div id="easyResult">
+            8,000万
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    function calculateExp() {
+
+        // 通常経験値
+        const normalExp =
+            Number(document.getElementById("normalExp").value);
+
+
+        // 対象キャラクター
+        const collab =
+            Number(document.getElementById("collab").value);
+
+
+        // ダンボ
+        const dumbo =
+            Number(document.getElementById("dumbo").value);
+
+
+        // リーダー倍率
+        const leader =
+            Number(document.getElementById("leader").value);
+
+
+        // フレンド倍率
+        const friend =
+            Number(document.getElementById("friend").value);
+
+
+        // バッジ倍率
+        const badge =
+            Number(
+                document.querySelector(
+                    'input[name="badge"]:checked'
+                ).value
+            );
+
+
+        // 会員倍率
+        const member =
+            Number(
+                document.querySelector(
+                    'input[name="member"]:checked'
+                ).value
+            );
+
+
+        // 対象キャラクター数チェック
+        if (collab < 0 || collab > 6) {
+
+            alert(
+                "対象キャラクター数は0～6体で入力してください。"
+            );
+
+            return;
+        }
+
+
+        // ダンボ数チェック
+        if (dumbo < 0) {
+
+            alert(
+                "ダンボの数は0以上で入力してください。"
+            );
+
+            return;
+        }
+
+
+        // 基本経験値
+        const baseExp =
+            normalExp +
+            (collab * 40000000);
+
+
+        // ダンボ倍率
+        const dumboRate =
+            1 + (dumbo * 0.02);
+
+
+        // 最終経験値
+        const result =
+            baseExp *
+            badge *
+            member *
+            dumboRate *
+            leader *
+            friend;
+
+
+        // 結果を表示
+        document.getElementById("baseExp").textContent =
+            Math.floor(baseExp).toLocaleString();
+
+
+        document.getElementById("dumboRate").textContent =
+            "×" + dumboRate.toFixed(2);
+
+
+        document.getElementById("result").textContent =
+            Math.floor(result).toLocaleString();
+
+
+        document.getElementById("easyResult").textContent =
+            convertExp(result);
+
+    }
+
+
+    // 経験値を「○億○万」に変換
+
+    function convertExp(exp) {
+
+        exp = Math.floor(exp);
+
+
+        const oku =
+            Math.floor(exp / 100000000);
+
+
+        const man =
+            Math.floor(
+                (exp % 100000000) / 10000
+            );
+
+
+        const remainder =
+            exp % 10000;
+
+
+        let text = "";
+
+
+        if (oku > 0) {
+
+            text += oku + "億";
+
+        }
+
+
+        if (man > 0) {
+
+            text += man + "万";
+
+        }
+
+
+        if (remainder > 0) {
+
+            text += remainder.toLocaleString();
+
+        }
+
+
+        if (text === "") {
+
+            text = "0";
+
+        }
+
+
+        return text;
+
+    }
+
+</script>
+
+</body>
+
+</html>
