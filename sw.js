@@ -1,4 +1,4 @@
-const CACHE_NAME = "exp-calculator-v1";
+const CACHE_NAME = "exp-calculator-v2";
 
 const FILES_TO_CACHE = [
     "./",
