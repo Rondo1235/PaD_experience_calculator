@@ -1,6 +1,6 @@
 {
   "name": "Puzzle Experience Calculator",
-  "short_name": "EXP Calculator",
+  "short_name": "Puzzle Experience Calculator",
   "start_url": "/PaD_experience_calculator/",
   "scope": "/PaD_experience_calculator/",
   "display": "standalone",
