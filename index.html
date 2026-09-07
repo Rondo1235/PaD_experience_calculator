@@ -285,42 +285,36 @@
         // 経験値を「兆・億・万」に変換
         function convertToJapanese(num) {
 
-            const trillion =
-                Math.floor(num / 1000000000000);
+    num = Math.floor(num);
 
-            const billion =
-                Math.floor(
-                    (num % 1000000000000) /
-                    100000000
-                );
+    const trillion = Math.floor(num / 1000000000000);
+    const billion = Math.floor(
+        (num % 1000000000000) / 100000000
+    );
+    const tenThousand = Math.floor(
+        (num % 100000000) / 10000
+    );
 
-            const tenThousand =
-                Math.floor(
-                    (num % 100000000) /
-                    10000
-                );
+    let result = "";
 
-            let result = "";
+    if (trillion > 0) {
+        result += trillion + "兆";
+    }
 
-            if (trillion > 0) {
-                result += trillion + "兆";
-            }
+    if (billion > 0) {
+        result += billion + "億";
+    }
 
-            if (billion > 0) {
-                result += billion + "億";
-            }
+    if (tenThousand > 0) {
+        result += tenThousand + "万";
+    }
 
-            if (tenThousand > 0) {
-                result += tenThousand + "万";
-            }
+    if (result === "") {
+        result = "0";
+    }
 
-            if (result === "") {
-                result = "0";
-            }
-
-            return result;
-        }
-
+    return result;
+}
 
         // 経験値計算
         function calculateExp() {
