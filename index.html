@@ -287,12 +287,17 @@
     num = Math.floor(num);
 
     const trillion = Math.floor(num / 1000000000000);
+
     const billion = Math.floor(
         (num % 1000000000000) / 100000000
     );
+
     const tenThousand = Math.floor(
         (num % 100000000) / 10000
     );
+
+    // 下4桁
+    const lower4 = num % 10000;
 
     let result = "";
 
@@ -306,6 +311,12 @@
 
     if (tenThousand > 0) {
         result += tenThousand + "万";
+    }
+
+    // 下4桁が0ではない場合だけ表示
+    // 先頭の0は表示しない
+    if (lower4 > 0) {
+        result += lower4;
     }
 
     if (result === "") {
