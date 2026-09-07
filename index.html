@@ -1,179 +1,135 @@
 <!DOCTYPE html>
-
 <html lang="ja">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Puzzle Experience Calculator</title>
-<link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#222222">
+    <title>Puzzle Experience Calculator</title>
 
-<style>
+    <link rel="manifest" href="manifest.webmanifest">
+    <meta name="theme-color" content="#222222">
 
-    * {
-        box-sizing: border-box;
-    }
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-    body {
-        margin: 0;
-        padding: 20px;
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #222;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
 
-        background: #222;
-        color: white;
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #333;
+            padding: 25px;
+            border-radius: 15px;
+        }
 
-        font-family: Arial, "Yu Gothic", sans-serif;
-    }
+        h1 {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 25px;
+        }
 
-    .container {
-        max-width: 600px;
+        h2 {
+            font-size: 20px;
+            margin-top: 25px;
+        }
 
-        margin: 0 auto;
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
 
-        background: #333;
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: none;
+            background: #555;
+            color: white;
+        }
 
-        padding: 30px;
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            margin-top: 10px;
+        }
 
-        border-radius: 15px;
-    }
+        .radio-group label {
+            margin: 0;
+        }
 
-    h1 {
-        text-align: center;
-        margin-bottom: 30px;
-    }
+        .radio-group input {
+            width: auto;
+        }
 
-    .input-item {
-        margin-bottom: 20px;
-    }
+        button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            background: #777;
+            color: white;
+            cursor: pointer;
+        }
 
-    .input-item label {
-        display: block;
-        font-size: 18px;
-        margin-bottom: 8px;
-    }
+        button:hover {
+            background: #888;
+        }
 
-    input[type="number"] {
-        width: 180px;
+        .result-box {
+            margin-top: 25px;
+            padding: 20px;
+            background: #444;
+            border-radius: 10px;
+        }
 
-        padding: 10px;
+        .result-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
 
-        font-size: 18px;
+        .result {
+            font-size: 28px;
+            font-weight: bold;
+            text-align: center;
+            word-break: break-word;
+        }
 
-        border-radius: 5px;
+        .easy-result {
+            margin-top: 10px;
+            text-align: center;
+            font-size: 18px;
+        }
 
-        border: 1px solid #777;
-    }
-
-    .radio-area {
-        background: #444;
-
-        padding: 15px;
-
-        margin-bottom: 20px;
-
-        border-radius: 10px;
-    }
-
-    .radio-area p {
-        margin-top: 0;
-
-        font-weight: bold;
-    }
-
-    .radio-area label {
-        margin-right: 20px;
-    }
-
-    select {
-        width: 180px;
-
-        padding: 10px;
-
-        font-size: 18px;
-
-        border-radius: 5px;
-    }
-
-    button {
-        width: 100%;
-
-        padding: 15px;
-
-        margin-top: 10px;
-
-        font-size: 20px;
-
-        font-weight: bold;
-
-        border: none;
-
-        border-radius: 10px;
-
-        cursor: pointer;
-
-        background: #555;
-
-        color: white;
-    }
-
-    button:hover {
-        background: #666;
-    }
-
-    .result-area {
-        margin-top: 30px;
-
-        padding: 20px;
-
-        background: #444;
-
-        border-radius: 10px;
-
-        text-align: center;
-    }
-
-    .result-area p {
-        margin-bottom: 5px;
-    }
-
-    #baseExp {
-        font-size: 20px;
-        font-weight: bold;
-    }
-
-    #dumboRate {
-        font-size: 20px;
-        font-weight: bold;
-    }
-
-    #result {
-        font-size: 36px;
-        font-weight: bold;
-        margin-top: 10px;
-    }
-
-    #easyResult {
-        margin-top: 10px;
-        font-size: 24px;
-        font-weight: bold;
-    }
-
-</style>
-
+        .info {
+            margin-top: 15px;
+            text-align: center;
+            color: #ccc;
+        }
+    </style>
 </head>
 
 <body>
 
+    <div class="container">
 
-<div class="container">
+        <h1>Puzzle Experience Calculator</h1>
 
-    <h1>Puzzle Experience Calculator</h1>
-
-
-    <!-- 通常経験値 -->
-
-    <div class="input-item">
+        <h2>基本設定</h2>
 
         <label for="normalExp">
             通常経験値
@@ -186,17 +142,8 @@
             min="0"
         >
 
-        EXP
-
-    </div>
-
-
-    <!-- 対象キャラクター -->
-
-    <div class="input-item">
-
         <label for="collab">
-            コラボ / 対象キャラクター数
+            コラボキャラクター数（最大6体）
         </label>
 
         <input
@@ -207,17 +154,58 @@
             max="6"
         >
 
-        体
+        <label>
+            経験値バッジ
+        </label>
 
-    </div>
+        <div class="radio-group">
+            <label>
+                <input
+                    type="radio"
+                    name="badge"
+                    value="1"
+                    checked
+                >
+                なし
+            </label>
 
+            <label>
+                <input
+                    type="radio"
+                    name="badge"
+                    value="1.1"
+                >
+                あり ×1.1
+            </label>
+        </div>
 
-    <!-- ダンボ -->
+        <label>
+            パズドラパス
+        </label>
 
-    <div class="input-item">
+        <div class="radio-group">
+            <label>
+                <input
+                    type="radio"
+                    name="member"
+                    value="1"
+                    checked
+                >
+                非会員
+            </label>
+
+            <label>
+                <input
+                    type="radio"
+                    name="member"
+                    value="1.05"
+                >
+                会員 ×1.05
+            </label>
+        </div>
 
         <label for="dumbo">
-            ダンボの数
+            ダンボ数
         </label>
 
         <input
@@ -227,365 +215,225 @@
             min="0"
         >
 
-        個
-
-    </div>
-
-
-    <!-- 経験値バッジ -->
-
-    <div class="radio-area">
-
-        <p>経験値バッジ</p>
-
-        <label>
-            <input
-                type="radio"
-                name="badge"
-                value="1"
-                checked
-            >
-
-            なし
-        </label>
-
-
-        <label>
-            <input
-                type="radio"
-                name="badge"
-                value="1.1"
-            >
-
-            あり（×1.1）
-        </label>
-
-    </div>
-
-
-    <!-- 会員 -->
-
-    <div class="radio-area">
-
-        <p>パズドラパス</p>
-
-        <label>
-            <input
-                type="radio"
-                name="member"
-                value="1"
-                checked
-            >
-
-            非会員
-        </label>
-
-
-        <label>
-            <input
-                type="radio"
-                name="member"
-                value="1.05"
-            >
-
-            会員（×1.05）
-        </label>
-
-    </div>
-
-
-    <!-- リーダー倍率 -->
-
-    <div class="input-item">
-
         <label for="leader">
             リーダー経験値倍率
         </label>
 
-        <select id="leader">
-
-            <option value="1.0">1.0倍</option>
-            <option value="1.1">1.1倍</option>
-            <option value="1.2">1.2倍</option>
-            <option value="1.3">1.3倍</option>
-            <option value="1.4">1.4倍</option>
-            <option value="1.5">1.5倍</option>
-            <option value="1.6">1.6倍</option>
-            <option value="1.7">1.7倍</option>
-            <option value="1.8">1.8倍</option>
-            <option value="1.9">1.9倍</option>
-            <option value="2.0">2.0倍</option>
-            <option value="2.1">2.1倍</option>
-            <option value="2.2">2.2倍</option>
-            <option value="2.3">2.3倍</option>
-            <option value="2.4">2.4倍</option>
-            <option value="2.5">2.5倍</option>
-            <option value="2.6">2.6倍</option>
-            <option value="2.7">2.7倍</option>
-            <option value="2.8">2.8倍</option>
-            <option value="2.9">2.9倍</option>
-            <option value="3.0">3.0倍</option>
-
-        </select>
-
-    </div>
-
-
-    <!-- フレンド倍率 -->
-
-    <div class="input-item">
+        <select id="leader"></select>
 
         <label for="friend">
             フレンド経験値倍率
         </label>
 
-        <select id="friend">
+        <select id="friend"></select>
 
-            <option value="1.0">1.0倍</option>
-            <option value="1.1">1.1倍</option>
-            <option value="1.2">1.2倍</option>
-            <option value="1.3">1.3倍</option>
-            <option value="1.4">1.4倍</option>
-            <option value="1.5">1.5倍</option>
-            <option value="1.6">1.6倍</option>
-            <option value="1.7">1.7倍</option>
-            <option value="1.8">1.8倍</option>
-            <option value="1.9">1.9倍</option>
-            <option value="2.0">2.0倍</option>
-            <option value="2.1">2.1倍</option>
-            <option value="2.2">2.2倍</option>
-            <option value="2.3">2.3倍</option>
-            <option value="2.4">2.4倍</option>
-            <option value="2.5">2.5倍</option>
-            <option value="2.6">2.6倍</option>
-            <option value="2.7">2.7倍</option>
-            <option value="2.8">2.8倍</option>
-            <option value="2.9">2.9倍</option>
-            <option value="3.0">3.0倍</option>
+        <button onclick="calculateExp()">
+            経験値を計算
+        </button>
 
-        </select>
+        <div class="result-box">
 
-    </div>
+            <div class="result-title">
+                計算結果
+            </div>
 
+            <div class="result" id="result">
+                0 EXP
+            </div>
 
-    <!-- 計算ボタン -->
+            <div class="easy-result" id="easyResult">
+                0
+            </div>
 
-    <button onclick="calculateExp()">
-        計算する
-    </button>
+            <div class="info">
+                基礎経験値：<span id="baseExp">80,000,000</span>
+            </div>
 
+            <div class="info">
+                ダンボ倍率：×<span id="dumboRate">1.00</span>
+            </div>
 
-    <!-- 計算結果 -->
-
-    <div class="result-area">
-
-        <h2>計算結果</h2>
-
-
-        <p>基本経験値</p>
-
-        <div id="baseExp">
-            80,000,000
-        </div>
-
-
-        <p>ダンボ倍率</p>
-
-        <div id="dumboRate">
-            ×1.00
-        </div>
-
-
-        <p>最終経験値</p>
-
-        <div id="result">
-            80,000,000
-        </div>
-
-
-        <div id="easyResult">
-            8,000万
         </div>
 
     </div>
 
-</div>
+    <script>
 
+        // リーダー・フレンド倍率を作成
+        function createMultiplierOptions(id) {
 
-<script>
+            const select = document.getElementById(id);
 
-    function calculateExp() {
+            for (let i = 10; i <= 30; i++) {
 
-        // 通常経験値
-        const normalExp =
-            Number(document.getElementById("normalExp").value);
+                const value = i / 10;
 
+                const option = document.createElement("option");
 
-        // 対象キャラクター
-        const collab =
-            Number(document.getElementById("collab").value);
+                option.value = value;
+                option.textContent = value.toFixed(1) + "倍";
 
-
-        // ダンボ
-        const dumbo =
-            Number(document.getElementById("dumbo").value);
-
-
-        // リーダー倍率
-        const leader =
-            Number(document.getElementById("leader").value);
-
-
-        // フレンド倍率
-        const friend =
-            Number(document.getElementById("friend").value);
-
-
-        // バッジ倍率
-        const badge =
-            Number(
-                document.querySelector(
-                    'input[name="badge"]:checked'
-                ).value
-            );
-
-
-        // 会員倍率
-        const member =
-            Number(
-                document.querySelector(
-                    'input[name="member"]:checked'
-                ).value
-            );
-
-
-        // 対象キャラクター数チェック
-        if (collab < 0 || collab > 6) {
-
-            alert(
-                "対象キャラクター数は0～6体で入力してください。"
-            );
-
-            return;
-        }
-
-
-        // ダンボ数チェック
-        if (dumbo < 0) {
-
-            alert(
-                "ダンボの数は0以上で入力してください。"
-            );
-
-            return;
-        }
-
-
-        // 基本経験値
-        const baseExp =
-            normalExp +
-            (collab * 40000000);
-
-
-        // ダンボ倍率
-        const dumboRate =
-            1 + (dumbo * 0.02);
-
-
-        // 最終経験値
-        const result =
-            baseExp *
-            badge *
-            member *
-            dumboRate *
-            leader *
-            friend;
-
-
-        // 結果を表示
-        document.getElementById("baseExp").textContent =
-            Math.floor(baseExp).toLocaleString();
-
-
-        document.getElementById("dumboRate").textContent =
-            "×" + dumboRate.toFixed(2);
-
-
-        document.getElementById("result").textContent =
-            Math.floor(result).toLocaleString();
-
-
-        document.getElementById("easyResult").textContent =
-            convertExp(result);
-
-    }
-
-
-    // 経験値を「○億○万」に変換
-
-    function convertExp(exp) {
-
-        exp = Math.floor(exp);
-
-
-        const oku =
-            Math.floor(exp / 100000000);
-
-
-        const man =
-            Math.floor(
-                (exp % 100000000) / 10000
-            );
-
-
-        const remainder =
-            exp % 10000;
-
-
-        let text = "";
-
-
-        if (oku > 0) {
-
-            text += oku + "億";
+                select.appendChild(option);
+            }
 
         }
 
+        createMultiplierOptions("leader");
+        createMultiplierOptions("friend");
 
-        if (man > 0) {
 
-            text += man + "万";
+        // 経験値を「兆・億・万」に変換
+        function convertToJapanese(num) {
 
+            const trillion =
+                Math.floor(num / 1000000000000);
+
+            const billion =
+                Math.floor(
+                    (num % 1000000000000) /
+                    100000000
+                );
+
+            const tenThousand =
+                Math.floor(
+                    (num % 100000000) /
+                    10000
+                );
+
+            let result = "";
+
+            if (trillion > 0) {
+                result += trillion + "兆";
+            }
+
+            if (billion > 0) {
+                result += billion + "億";
+            }
+
+            if (tenThousand > 0) {
+                result += tenThousand + "万";
+            }
+
+            if (result === "") {
+                result = "0";
+            }
+
+            return result;
         }
 
 
-        if (remainder > 0) {
+        // 経験値計算
+        function calculateExp() {
 
-            text += remainder.toLocaleString();
+            let normalExp =
+                Number(
+                    document.getElementById("normalExp").value
+                );
 
+            let collab =
+                Number(
+                    document.getElementById("collab").value
+                );
+
+            let dumbo =
+                Number(
+                    document.getElementById("dumbo").value
+                );
+
+            // コラボキャラクターは最大6体
+            if (collab > 6) {
+                collab = 6;
+                document.getElementById("collab").value = 6;
+            }
+
+            if (collab < 0) {
+                collab = 0;
+                document.getElementById("collab").value = 0;
+            }
+
+            if (dumbo < 0) {
+                dumbo = 0;
+                document.getElementById("dumbo").value = 0;
+            }
+
+            // コラボキャラクター追加分
+            const collabExp =
+                collab * 40000000;
+
+            // 基礎経験値
+            const baseExp =
+                normalExp + collabExp;
+
+            // 経験値バッジ
+            const badge =
+                Number(
+                    document.querySelector(
+                        'input[name="badge"]:checked'
+                    ).value
+                );
+
+            // 会員
+            const member =
+                Number(
+                    document.querySelector(
+                        'input[name="member"]:checked'
+                    ).value
+                );
+
+            // ダンボ倍率
+            const dumboRate =
+                1 + (dumbo * 0.02);
+
+            // リーダー倍率
+            const leader =
+                Number(
+                    document.getElementById("leader").value
+                );
+
+            // フレンド倍率
+            const friend =
+                Number(
+                    document.getElementById("friend").value
+                );
+
+            // 最終計算
+            const finalExp =
+                Math.floor(
+                    baseExp *
+                    badge *
+                    member *
+                    dumboRate *
+                    leader *
+                    friend
+                );
+
+            // 結果表示
+            document.getElementById("baseExp").textContent =
+                baseExp.toLocaleString();
+
+            document.getElementById("dumboRate").textContent =
+                dumboRate.toFixed(2);
+
+            document.getElementById("result").textContent =
+                finalExp.toLocaleString() + " EXP";
+
+            document.getElementById("easyResult").textContent =
+                convertToJapanese(finalExp);
         }
 
 
-        if (text === "") {
+        // Service Worker登録
+        if ("serviceWorker" in navigator) {
 
-            text = "0";
+            window.addEventListener("load", () => {
+
+                navigator.serviceWorker.register("./sw.js");
+
+            });
 
         }
 
-
-        return text;
-
-    }
-
-</script>
-
-<script>
-if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./sw.js");
-    });
-}
-</script>
+    </script>
 
 </body>
 
