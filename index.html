@@ -170,7 +170,7 @@
         >
 
         <label for="collab">
-            コラボキャラクター数（最大6体）
+            コラボ・イベントキャラクター数（1体につき+4000万）
         </label>
 
         <input
@@ -255,7 +255,7 @@
         <select id="friend"></select>
 
         <button onclick="calculateAll()">
-            まとめて計算
+            計算
         </button>
 
         <div class="result-box">
@@ -273,11 +273,27 @@
             </div>
 
             <div class="info">
-                基礎経験値：<span id="baseExp">80,000,000</span>
+                通常経験値：<span id="baseExp">80,000,000</span>
+            </div>
+
+            <div class="info">
+                コラボ・イベントキャラ数加算経験値：<span id="collabExp">+0</span>
+            </div>
+
+            <div class="info">
+                経験値バッジ・パズドラパス合計倍率：×<span id="badgeMemberRate">1.00</span>
+            </div>
+
+            <div class="info">
+                リーダー・フレンド経験値倍率：×<span id="leaderFriendRate">1.00</span>
             </div>
 
             <div class="info">
                 ダンボ倍率：×<span id="dumboRate">1.00</span>
+            </div>
+
+            <div class="info">
+                経験値倍率（合計）：×<span id="expRate">1.00</span>
             </div>
 
         </div>
@@ -437,6 +453,13 @@
 
 
         // 経験値計算
+        function formatMultiplier(value) {
+            // 小数第2位などで丸めず、意味のある桁まで表示
+            // 浮動小数点の誤差（1.1550000000000002など）を除去
+            return Number(value.toPrecision(15)).toString();
+        }
+
+
         function calculateExp() {
 
             let normalExp =
@@ -482,7 +505,7 @@
                 collab * 40000000;
 
 
-            // 基礎経験値
+            // 通常経験値
             const baseExp =
                 normalExp + collabExp;
 
@@ -524,15 +547,26 @@
                 );
 
 
+            // 経験値バッジ・パズドラパス合計倍率
+            const badgeMemberRate =
+                badge * member;
+
+            // リーダー・フレンド経験値倍率
+            const leaderFriendRate =
+                leader * friend;
+
+            // 経験値倍率（合計）
+            // 「バッジ・パズドラパス」×「リーダー・フレンド」×「ダンボ」
+            const expRate =
+                badgeMemberRate *
+                leaderFriendRate *
+                dumboRate;
+
+
             // 最終経験値
             const finalExp =
                 Math.floor(
-                    baseExp *
-                    badge *
-                    member *
-                    dumboRate *
-                    leader *
-                    friend
+                    baseExp * expRate
                 );
 
 
@@ -541,10 +575,22 @@
 
             // 結果表示
             document.getElementById("baseExp").textContent =
-                baseExp.toLocaleString();
+                normalExp.toLocaleString();
+
+            document.getElementById("collabExp").textContent =
+                "+" + collabExp.toLocaleString();
+
+            document.getElementById("badgeMemberRate").textContent =
+                formatMultiplier(badgeMemberRate);
+
+            document.getElementById("leaderFriendRate").textContent =
+                leaderFriendRate.toFixed(2);
 
             document.getElementById("dumboRate").textContent =
                 dumboRate.toFixed(2);
+
+            document.getElementById("expRate").textContent =
+                formatMultiplier(expRate);
 
             document.getElementById("result").textContent =
                 finalExp.toLocaleString() + " EXP";
